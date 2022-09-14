@@ -1,0 +1,5 @@
+{
+    "editor.formatOnSave": true,
+    "cmake.sourceDirectory": "${workspaceFolder}/linux",
+    "dart.flutterHotReloadOnSave": "all"
+}
