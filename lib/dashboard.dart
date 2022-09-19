@@ -11,6 +11,15 @@ class MinhasListas extends StatelessWidget {
         appBar: AppBar(
           title: Text('Dashboard'),
           centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              padding: const EdgeInsets.all(8),
+              icon: const Icon(
+                Icons.add,
+              ),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: Stack(
           children: <Widget>[
