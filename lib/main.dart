@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mylists/dashboard.dart';
 import 'package:mylists/models/estilos.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mylists/models/listas.dart';
 
 void main() => runApp(const App());
 
@@ -15,9 +17,9 @@ class App extends StatelessWidget {
       title: 'MyLists',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.lightBlue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -36,18 +38,19 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: <Widget>[
           my_back_ground,
-          Container(
-            child: Center(
-              child: ElevatedButton(
-                child: const Text('Minhas listas'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MinhasListas()),
-                  );
-                },
+          Center(
+            child: ElevatedButton(
+              child: Text(
+                'Painel de controle',
+                style: GoogleFonts.getFont('Lato'),
               ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ListDashboard()),
+                );
+              },
             ),
           ),
         ],
