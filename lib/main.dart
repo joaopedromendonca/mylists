@@ -31,7 +31,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _formKey = GlobalKey<FormState>();
   List<Tarefa> ListaDeTarefas = [];
+  final _nomeController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nomeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +54,32 @@ class _HomePageState extends State<HomePage> {
               Icons.add,
             ),
             onPressed: () {
-              setState(() {
-                ListaDeTarefas.add(Tarefa(nome: "d"));
-              });
-              print(ListaDeTarefas);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      controller: _nomeController,
+                      validator: (nome) {
+                        if (nome == null || nome.isEmpty) {
+                          return "Este campo é obrigatório.";
+                        }
+                        return null;
+                      },
+                      decoration:
+                          InputDecoration(hintText: "Insira o nome da tarefa"),
+                      onFieldSubmitted: (nome) => setState(() {
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.of(context).pop();
+                          _nomeController.clear();
+                          return ListaDeTarefas.add(Tarefa(nome: nome));
+                        }
+                      }),
+                    ),
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -57,16 +87,14 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            my_back_ground,
-            ReorderableListView(
+            myBackGround,
+            ReorderableListView.builder(
+              itemCount: ListaDeTarefas.length,
+              itemBuilder: (BuildContext context, int index) {
+                final tarefa = ListaDeTarefas[index];
+                return buildTarefa(index, tarefa);
+              },
               padding: const EdgeInsets.all(8),
-              children: [
-                for (final tarefa in ListaDeTarefas)
-                  Tarefa(
-                    key: ValueKey(ListaDeTarefas.indexOf(tarefa)),
-                    nome: tarefa.nome,
-                  ),
-              ],
               onReorder: (int oldIndex, int newIndex) {
                 setState(() {
                   if (newIndex > oldIndex) {
@@ -82,4 +110,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Widget buildTarefa(int index, Tarefa tarefa) => ListTile(
+        key: ValueKey(tarefa),
+        title: Text(tarefa.nome),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 8,
+        ),
+      );
 }

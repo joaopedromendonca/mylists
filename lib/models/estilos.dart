@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-var my_back_ground = Container(
+var myBackGround = Container(
   height: double.infinity,
   width: double.infinity,
   decoration: BoxDecoration(
