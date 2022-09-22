@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mylists/models/estilos.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylists/models/estilos.dart';
 import 'package:mylists/models/tarefa.dart';
 
 void main() => runApp(const App());
@@ -47,20 +47,38 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () {
               setState(() {
-                ListaDeTarefas.add(Tarefa());
+                ListaDeTarefas.add(Tarefa(nome: "d"));
               });
               print(ListaDeTarefas);
             },
           ),
         ],
       ),
-      body: Stack(
-        children: <Widget>[
-          my_back_ground,
-          ListView(
-            children: List<Tarefa>.from(ListaDeTarefas),
-          ),
-        ],
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            my_back_ground,
+            ReorderableListView(
+              padding: const EdgeInsets.all(8),
+              children: [
+                for (final tarefa in ListaDeTarefas)
+                  Tarefa(
+                    key: ValueKey(ListaDeTarefas.indexOf(tarefa)),
+                    nome: tarefa.nome,
+                  ),
+              ],
+              onReorder: (int oldIndex, int newIndex) {
+                setState(() {
+                  if (newIndex > oldIndex) {
+                    newIndex -= 1;
+                  }
+                  final Tarefa tarefa = ListaDeTarefas.removeAt(oldIndex);
+                  ListaDeTarefas.insert(newIndex, tarefa);
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

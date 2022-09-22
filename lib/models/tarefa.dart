@@ -23,21 +23,8 @@ class _TarefaState extends State<Tarefa> {
           Form(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                    widget.nome,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: ElevatedButton(
-                    child: const Text(
-                      "Criar",
-                    ),
-                    onPressed: () {
-                      print("apertei");
-                    },
-                  ),
+                Text(
+                  widget.nome,
                 ),
               ],
             ),
