@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mylists/dashboard.dart';
 import 'package:mylists/models/estilos.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylists/models/listas.dart';
+import 'package:mylists/models/tarefa.dart';
 
 void main() => runApp(const App());
 
@@ -32,26 +31,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Tarefa> ListaDeTarefas = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard'),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            padding: const EdgeInsets.all(8),
+            icon: const Icon(
+              Icons.add,
+            ),
+            onPressed: () {
+              setState(() {
+                ListaDeTarefas.add(Tarefa());
+              });
+              print(ListaDeTarefas);
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: <Widget>[
           my_back_ground,
-          Center(
-            child: ElevatedButton(
-              child: Text(
-                'Painel de controle',
-                style: GoogleFonts.getFont('Lato'),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ListDashboard()),
-                );
-              },
-            ),
+          ListView(
+            children: List<Tarefa>.from(ListaDeTarefas),
           ),
         ],
       ),
