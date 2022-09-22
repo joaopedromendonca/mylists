@@ -32,6 +32,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
+  final _editFormKey = GlobalKey<FormState>();
   List<Tarefa> ListaDeTarefas = [];
   final _nomeController = TextEditingController();
 
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                   content: Form(
                     key: _formKey,
                     child: TextFormField(
+                      autofocus: true,
                       controller: _nomeController,
                       validator: (nome) {
                         if (nome == null || nome.isEmpty) {
@@ -118,5 +120,50 @@ class _HomePageState extends State<HomePage> {
           horizontal: 10,
           vertical: 8,
         ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              onPressed: (() => editar(index)),
+              icon: Icon(Icons.edit),
+            ),
+            IconButton(
+              onPressed: (() => deletar(index)),
+              icon: Icon(Icons.delete),
+            )
+          ],
+        ),
       );
+
+  void editar(int index) => showDialog(
+        context: context,
+        builder: ((context) {
+          final tarefa = ListaDeTarefas[index];
+          return AlertDialog(
+            content: Form(
+              key: _editFormKey,
+              child: TextFormField(
+                autofocus: true,
+                initialValue: tarefa.nome,
+                validator: (nome) {
+                  if (nome == null || nome.isEmpty) {
+                    return "Este campo é obrigatório.";
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (nome) => setState(() {
+                  if (_editFormKey.currentState!.validate()) {
+                    Navigator.of(context).pop();
+                    tarefa.nome = nome;
+                  }
+                }),
+              ),
+            ),
+          );
+        }),
+      );
+
+  void deletar(int index) => setState(() {
+        ListaDeTarefas.removeAt(index);
+      });
 }
