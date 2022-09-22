@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylists/models/estilos.dart';
 import 'package:mylists/models/tarefa.dart';
+import 'package:mylists/custom_page_route.dart';
 
 void main() => runApp(const App());
 
@@ -116,6 +117,9 @@ class _HomePageState extends State<HomePage> {
   Widget buildTarefa(int index, Tarefa tarefa) => ListTile(
         key: ValueKey(tarefa),
         title: Text(tarefa.nome),
+        onTap: () => Navigator.of(context).push(
+          CustomPageRoute(child: telaTarefa(nome: tarefa.nome)),
+        ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 8,
