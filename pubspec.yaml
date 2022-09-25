@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   drag_and_drop_lists: ^0.3.3
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mylists/models/estilos.dart';
 
+import 'botao_menu.dart';
+
 class Tarefa {
   String nome;
 
@@ -20,6 +22,13 @@ class telaTarefa extends StatelessWidget {
       appBar: AppBar(
         title: Text(nome),
         centerTitle: true,
+        actions: [
+          PopupMenuButton<ItemMenu>(
+            itemBuilder: (context) => [
+              ...Menu.primeiraLista.map(buildItem).toList(),
+            ],
+          )
+        ],
       ),
       body: SafeArea(
         child: Stack(
@@ -30,4 +39,8 @@ class telaTarefa extends StatelessWidget {
       ),
     );
   }
+
+  PopupMenuItem<ItemMenu> buildItem(ItemMenu item) => PopupMenuItem(
+        child: Text(item.nome),
+      );
 }

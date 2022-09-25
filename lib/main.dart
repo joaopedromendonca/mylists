@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mylists/models/estilos.dart';
 import 'package:mylists/models/tarefa.dart';
 import 'package:mylists/custom_page_route.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() => runApp(const App());
 
@@ -118,7 +119,12 @@ class _HomePageState extends State<HomePage> {
         key: ValueKey(tarefa),
         title: Text(tarefa.nome),
         onTap: () => Navigator.of(context).push(
-          CustomPageRoute(child: telaTarefa(nome: tarefa.nome)),
+          PageTransition(
+              type: PageTransitionType.rightToLeftJoined,
+              childCurrent: widget,
+              duration: Duration(milliseconds: 500),
+              reverseDuration: Duration(milliseconds: 500),
+              child: telaTarefa(nome: tarefa.nome)),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 10,
