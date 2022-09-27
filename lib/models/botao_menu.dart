@@ -10,8 +10,14 @@ class ItemMenu {
 class Menu {
   static const List<ItemMenu> primeiraLista = [
     itemConfig,
+    itemEditar,
     itemCalendario,
   ];
+
+  static const itemEditar = ItemMenu(
+    nome: "Editar",
+    icone: Icons.edit,
+  );
 
   static const itemConfig = ItemMenu(
     nome: "Configurações",

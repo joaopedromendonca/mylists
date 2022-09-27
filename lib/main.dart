@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylists/models/estilos.dart';
 import 'package:mylists/models/tarefa.dart';
-import 'package:mylists/custom_page_route.dart';
 import 'package:page_transition/page_transition.dart';
 
 void main() => runApp(const App());
@@ -48,6 +47,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: <Widget>[
