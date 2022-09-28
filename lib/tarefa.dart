@@ -17,7 +17,7 @@ class Tarefa {
 
 class ItemTarefa {
   String nome;
-  String? descricao;
+  String descricao = "";
 
   ItemTarefa({required this.nome});
 }
@@ -33,7 +33,8 @@ class TelaTarefa extends StatefulWidget {
 class _TelaTarefaState extends State<TelaTarefa> {
   final _formKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
-  List<ItemTarefa> ListaItens = [];
+  final _editFormKey = GlobalKey<FormState>();
+  List<ItemTarefa> listaItens = [];
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ class _TelaTarefaState extends State<TelaTarefa> {
                           if (_formKey.currentState!.validate()) {
                             Navigator.of(context).pop();
                             _nomeController.clear();
-                            return ListaItens.add(ItemTarefa(nome: nome));
+                            return listaItens.add(ItemTarefa(nome: nome));
                           }
                         }),
                       ),
@@ -86,9 +87,9 @@ class _TelaTarefaState extends State<TelaTarefa> {
           children: <Widget>[
             BackGround(),
             ReorderableListView.builder(
-              itemCount: ListaItens.length,
+              itemCount: listaItens.length,
               itemBuilder: (BuildContext context, int index) {
-                final tarefa = ListaItens[index];
+                final tarefa = listaItens[index];
                 return Card(
                     key: ValueKey(tarefa),
                     color: Color.fromARGB(255, 22, 205, 230),
@@ -103,25 +104,25 @@ class _TelaTarefaState extends State<TelaTarefa> {
                             childCurrent: widget,
                             duration: Duration(milliseconds: 500),
                             reverseDuration: Duration(milliseconds: 500),
-                            child: TelaItem(nome: tarefa.nome)),
+                            child: TelaItem(tarefa: tarefa)),
                       ),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 8,
                       ),
-                      // trailing: Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   children: <Widget>[
-                      //     IconButton(
-                      //       onPressed: (() => editar(index)),
-                      //       icon: Icon(Icons.edit),
-                      //     ),
-                      //     IconButton(
-                      //       onPressed: (() => deletar(index)),
-                      //       icon: Icon(Icons.delete),
-                      //     )
-                      //   ],
-                      // ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: (() => editar(index)),
+                            icon: Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: (() => deletar(index)),
+                            icon: Icon(Icons.delete),
+                          )
+                        ],
+                      ),
                     ));
               },
               padding: const EdgeInsets.all(8),
@@ -130,8 +131,8 @@ class _TelaTarefaState extends State<TelaTarefa> {
                   if (newIndex > oldIndex) {
                     newIndex -= 1;
                   }
-                  final ItemTarefa item = ListaItens.removeAt(oldIndex);
-                  ListaItens.insert(newIndex, item);
+                  final ItemTarefa item = listaItens.removeAt(oldIndex);
+                  listaItens.insert(newIndex, item);
                 });
               },
             ),
@@ -151,4 +152,36 @@ class _TelaTarefaState extends State<TelaTarefa> {
           ],
         ),
       );
+
+  void editar(int index) => showDialog(
+        context: context,
+        builder: ((context) {
+          final tarefa = listaItens[index];
+          return AlertDialog(
+            content: Form(
+              key: _editFormKey,
+              child: TextFormField(
+                autofocus: true,
+                initialValue: tarefa.nome,
+                validator: (nome) {
+                  if (nome == null || nome.isEmpty) {
+                    return "Este campo é obrigatório.";
+                  }
+                  return null;
+                },
+                onFieldSubmitted: (nome) => setState(() {
+                  if (_editFormKey.currentState!.validate()) {
+                    Navigator.of(context).pop();
+                    tarefa.nome = nome;
+                  }
+                }),
+              ),
+            ),
+          );
+        }),
+      );
+
+  void deletar(int index) => setState(() {
+        listaItens.removeAt(index);
+      });
 }
