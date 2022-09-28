@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: <Widget>[
@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
               itemCount: ListaDeTarefas.length,
               itemBuilder: (BuildContext context, int index) {
                 final tarefa = ListaDeTarefas[index];
-                // return buildTarefa(index, tarefa);
                 return Card(
                     key: ValueKey(tarefa),
                     color: Colors.lightBlueAccent,
@@ -129,36 +128,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  Widget buildTarefa(int index, Tarefa tarefa) => ListTile(
-        key: ValueKey(tarefa),
-        title: Text(tarefa.nome),
-        onTap: () => Navigator.of(context).push(
-          PageTransition(
-              type: PageTransitionType.rightToLeftJoined,
-              childCurrent: widget,
-              duration: Duration(milliseconds: 500),
-              reverseDuration: Duration(milliseconds: 500),
-              child: TelaTarefa(nome: tarefa.nome)),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 8,
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            IconButton(
-              onPressed: (() => editar(index)),
-              icon: Icon(Icons.edit),
-            ),
-            IconButton(
-              onPressed: (() => deletar(index)),
-              icon: Icon(Icons.delete),
-            )
-          ],
-        ),
-      );
 
   void editar(int index) => showDialog(
         context: context,

@@ -9,9 +9,8 @@ class ItemMenu {
 
 class Menu {
   static const List<ItemMenu> primeiraLista = [
-    itemConfig,
+    itemNovo,
     itemEditar,
-    itemCalendario,
   ];
 
   static const itemEditar = ItemMenu(
@@ -24,8 +23,8 @@ class Menu {
     icone: Icons.settings,
   );
 
-  static const itemCalendario = ItemMenu(
-    nome: "Calendario",
-    icone: Icons.calendar_month,
+  static const itemNovo = ItemMenu(
+    nome: "Novo item",
+    icone: Icons.create,
   );
 }

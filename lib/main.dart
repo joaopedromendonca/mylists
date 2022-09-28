@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mylists/home_page.dart';
-import 'package:mylists/login_page.dart';
+import 'package:mylists/welcome_page.dart';
 
 void main() => runApp(const App());
 
@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: HomePage(),
+      home: WelcomePage(),
     );
   }
 }
