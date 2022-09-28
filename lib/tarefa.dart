@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mylists/models/estilos.dart';
 
-import 'botao_menu.dart';
+import 'models/botao_menu.dart';
 
 class Tarefa {
   String nome;
@@ -12,9 +13,9 @@ class Tarefa {
   });
 }
 
-class telaTarefa extends StatelessWidget {
+class TelaTarefa extends StatelessWidget {
   final String nome;
-  const telaTarefa({super.key, required this.nome});
+  const TelaTarefa({super.key, required this.nome});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +33,9 @@ class telaTarefa extends StatelessWidget {
       ),
       body: SafeArea(
         child: Stack(
+          // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            myBackGround,
+            BackGround(),
           ],
         ),
       ),
