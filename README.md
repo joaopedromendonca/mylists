@@ -1,7 +1,7 @@
 # MyDay
 
-A new Flutter project.
+A day-to-day management application for personal organization
 
-## Getting Started
+## Status
 
-This is an management app for personal organization of tasks and schedulle. It's currently in development stage.
+It's currently in development stage.
