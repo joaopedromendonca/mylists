@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mylists/models/estilos.dart';
+import 'package:mylists/templates/estilos.dart';
 import 'package:mylists/tarefa.dart';
 import 'package:page_transition/page_transition.dart';
 
