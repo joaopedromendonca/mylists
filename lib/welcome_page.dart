@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mylists/home_page.dart';
-import 'package:mylists/models/estilos.dart';
+import 'package:mylists/templates/estilos.dart';
 import 'package:page_transition/page_transition.dart';
 
 class WelcomePage extends StatefulWidget {
