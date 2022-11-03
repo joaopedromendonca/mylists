@@ -10,7 +10,6 @@ class ItemMenu {
 class Menu {
   static const List<ItemMenu> primeiraLista = [
     itemNovo,
-    itemEditar,
   ];
 
   static const itemEditar = ItemMenu(
