@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:mylists/models/estilos.dart';
+import 'package:mylists/templates/estilos.dart';
 import 'package:mylists/tarefa.dart';
 
 class TelaItem extends StatefulWidget {
