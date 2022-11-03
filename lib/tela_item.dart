@@ -33,23 +33,20 @@ class _TelaItemState extends State<TelaItem> {
 
   @override
   Widget build(BuildContext context) {
-    String? _temp_value;
-    final _descricaoController =
+    final descricaoController =
         TextEditingController(text: widget.tarefa.descricao);
 
     return WillPopScope(
       onWillPop: () async {
-        final _shouldPop = await showWarning(context);
-        return _shouldPop ?? false;
+        final shouldPop = await showWarning(context);
+        return shouldPop ?? false;
       },
       child: Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
               onPressed: () {
-                print("Entrou save");
-                widget.tarefa.descricao = _descricaoController.text;
-                print(widget.tarefa.descricao);
+                widget.tarefa.descricao = descricaoController.text;
               },
               icon: const Icon(Icons.save),
             ),
@@ -68,7 +65,7 @@ class _TelaItemState extends State<TelaItem> {
               keyboardType: TextInputType.text,
               maxLines: 8,
               minLines: 4,
-              controller: _descricaoController,
+              controller: descricaoController,
             ),
           ),
         ]),
