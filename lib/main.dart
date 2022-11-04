@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mylists/home_page.dart';
-import 'package:mylists/welcome_page.dart';
 
-void main() => runApp(const App());
+import 'home_page.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const App());
+}
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: WelcomePage(),
+      home: HomePage(),
     );
   }
 }
