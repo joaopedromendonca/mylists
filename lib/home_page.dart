@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: <Widget>[
@@ -39,11 +39,13 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () {
               showDialog(
+                barrierColor: Colors.blue,
                 context: context,
                 builder: (context) => AlertDialog(
                   content: Form(
                     key: _formKey,
                     child: TextFormField(
+                      showCursor: true,
                       autofocus: true,
                       controller: _nomeController,
                       validator: (nome) {
@@ -79,7 +81,6 @@ class _HomePageState extends State<HomePage> {
                 final tarefa = ListaDeTarefas[index];
                 return Card(
                     key: ValueKey(tarefa),
-                    color: Colors.lightBlueAccent,
                     elevation: 1,
                     margin: const EdgeInsets.all(2),
                     child: ListTile(
