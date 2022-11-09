@@ -81,61 +81,57 @@ class _TelaTarefaState extends State<TelaTarefa> {
         ],
       ),
       body: SafeArea(
-        child: Stack(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[
-            BackGround(),
-            ReorderableListView.builder(
-              itemCount: listaItens.length,
-              itemBuilder: (BuildContext context, int index) {
-                final tarefa = listaItens[index];
-                return Card(
+        child: backGround(
+          ReorderableListView.builder(
+            itemCount: listaItens.length,
+            itemBuilder: (BuildContext context, int index) {
+              final tarefa = listaItens[index];
+              return Card(
+                  key: ValueKey(tarefa),
+                  color: Color.fromARGB(255, 22, 205, 230),
+                  elevation: 1,
+                  margin: const EdgeInsets.all(2),
+                  child: ListTile(
                     key: ValueKey(tarefa),
-                    color: Color.fromARGB(255, 22, 205, 230),
-                    elevation: 1,
-                    margin: const EdgeInsets.all(2),
-                    child: ListTile(
-                      key: ValueKey(tarefa),
-                      title: Text(tarefa.nome),
-                      onTap: () => Navigator.of(context).push(
-                        PageTransition(
-                            type: PageTransitionType.rightToLeftJoined,
-                            childCurrent: widget,
-                            duration: Duration(milliseconds: 500),
-                            reverseDuration: Duration(milliseconds: 500),
-                            child: TelaItem(tarefa: tarefa)),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: (() => editar(index)),
-                            icon: Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: (() => deletar(index)),
-                            icon: Icon(Icons.delete),
-                          )
-                        ],
-                      ),
-                    ));
-              },
-              padding: const EdgeInsets.all(8),
-              onReorder: (int oldIndex, int newIndex) {
-                setState(() {
-                  if (newIndex > oldIndex) {
-                    newIndex -= 1;
-                  }
-                  final ItemTarefa item = listaItens.removeAt(oldIndex);
-                  listaItens.insert(newIndex, item);
-                });
-              },
-            ),
-          ],
+                    title: Text(tarefa.nome),
+                    onTap: () => Navigator.of(context).push(
+                      PageTransition(
+                          type: PageTransitionType.rightToLeftJoined,
+                          childCurrent: widget,
+                          duration: Duration(milliseconds: 500),
+                          reverseDuration: Duration(milliseconds: 500),
+                          child: TelaItem(tarefa: tarefa)),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        IconButton(
+                          onPressed: (() => editar(index)),
+                          icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: (() => deletar(index)),
+                          icon: Icon(Icons.delete),
+                        )
+                      ],
+                    ),
+                  ));
+            },
+            padding: const EdgeInsets.all(8),
+            onReorder: (int oldIndex, int newIndex) {
+              setState(() {
+                if (newIndex > oldIndex) {
+                  newIndex -= 1;
+                }
+                final ItemTarefa item = listaItens.removeAt(oldIndex);
+                listaItens.insert(newIndex, item);
+              });
+            },
+          ),
         ),
       ),
     );

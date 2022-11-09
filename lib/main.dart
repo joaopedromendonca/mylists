@@ -24,15 +24,15 @@ class App extends StatelessWidget {
         ),
         listTileTheme: ListTileThemeData(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          tileColor: Color.fromARGB(255, 23, 202, 53),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          tileColor: Color.fromARGB(236, 21, 187, 209),
         ),
         dialogTheme: DialogTheme(
-          backgroundColor: Color.fromARGB(237, 7, 175, 241),
+          backgroundColor: Color.fromARGB(236, 21, 187, 209),
         ),
         textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.lightBlue,
-          cursorColor: Color.fromARGB(255, 10, 82, 216),
+          selectionColor: Color.fromARGB(255, 6, 219, 202),
+          cursorColor: Color.fromARGB(255, 0, 40, 114),
         ),
         primarySwatch: Colors.lightBlue,
       ),
