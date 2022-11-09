@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final _editFormKey = GlobalKey<FormState>();
-  List<Tarefa> ListaDeTarefas = [];
+  List<Tarefa> tarefas = [];
   final _nomeController = TextEditingController();
 
   @override
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                         if (_formKey.currentState!.validate()) {
                           Navigator.of(context).pop();
                           _nomeController.clear();
-                          return ListaDeTarefas.add(Tarefa(nome: nome));
+                          return tarefas.add(Tarefa(nome: nome));
                         }
                       }),
                     ),
@@ -72,70 +72,84 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SafeArea(
-        child: Stack(
+        child: backGround(
+          ReorderableListView.builder(
+            proxyDecorator: proxyDecorator,
+            itemCount: tarefas.length,
+            itemBuilder: (BuildContext context, int index) {
+              final tarefa = tarefas[index];
+              return buildCard(index, tarefa);
+            },
+            padding: const EdgeInsets.all(8),
+            onReorder: (int oldIndex, int newIndex) {
+              if (newIndex > oldIndex) newIndex--;
+              setState(() {
+                var tarefa = tarefas[oldIndex];
+                tarefas.removeAt(oldIndex);
+                tarefas.insert(newIndex, tarefa);
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildCard(int index, Tarefa tarefa) {
+    return Card(
+      key: ValueKey(tarefa),
+      margin: const EdgeInsets.all(5),
+      child: ListTile(
+        // tileColor: _tile_color,
+        key: ValueKey(tarefa),
+        title: Text(tarefa.nome),
+        onTap: () => Navigator.of(context).push(
+          PageTransition(
+              type: PageTransitionType.rightToLeftJoined,
+              childCurrent: widget,
+              duration: Duration(milliseconds: 500),
+              reverseDuration: Duration(milliseconds: 500),
+              child: TelaTarefa(nome: tarefa.nome)),
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 8,
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            BackGround(),
-            ReorderableListView.builder(
-              itemCount: ListaDeTarefas.length,
-              itemBuilder: (BuildContext context, int index) {
-                final tarefa = ListaDeTarefas[index];
-                return Card(
-                    key: ValueKey(tarefa),
-                    elevation: 0,
-                    margin: const EdgeInsets.all(5),
-                    child: ListTile(
-                      tileColor: Colors.amber,
-                      key: ValueKey(tarefa),
-                      title: Text(tarefa.nome),
-                      onTap: () => Navigator.of(context).push(
-                        PageTransition(
-                            type: PageTransitionType.rightToLeftJoined,
-                            childCurrent: widget,
-                            duration: Duration(milliseconds: 500),
-                            reverseDuration: Duration(milliseconds: 500),
-                            child: TelaTarefa(nome: tarefa.nome)),
-                      ),
-                      selectedTileColor: Colors.transparent,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: (() => editar(index)),
-                            icon: Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: (() => deletar(index)),
-                            icon: Icon(Icons.delete),
-                          )
-                        ],
-                      ),
-                    ));
-              },
-              padding: const EdgeInsets.all(8),
-              onReorder: (int oldIndex, int newIndex) {
-                setState(() {
-                  if (newIndex > oldIndex) {
-                    newIndex -= 1;
-                  }
-                  final Tarefa tarefa = ListaDeTarefas.removeAt(oldIndex);
-                  ListaDeTarefas.insert(newIndex, tarefa);
-                });
-              },
+            IconButton(
+              onPressed: (() => editar(index)),
+              icon: Icon(Icons.edit),
             ),
+            IconButton(
+              onPressed: (() => deletar(index)),
+              icon: Icon(Icons.delete),
+            )
           ],
         ),
       ),
     );
   }
 
+  Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        return Material(
+          elevation: 0.0,
+          color: Colors.transparent,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+
   void editar(int index) => showDialog(
         context: context,
         builder: ((context) {
-          final tarefa = ListaDeTarefas[index];
+          final tarefa = tarefas[index];
           return AlertDialog(
             content: Form(
               key: _editFormKey,
@@ -161,6 +175,6 @@ class _HomePageState extends State<HomePage> {
       );
 
   void deletar(int index) => setState(() {
-        ListaDeTarefas.removeAt(index);
+        tarefas.removeAt(index);
       });
 }
