@@ -52,8 +52,7 @@ class _TelaItemState extends State<TelaItem> {
             ),
           ],
         ),
-        body: Stack(children: [
-          BackGround(),
+        body: backGround(
           Container(
             padding: EdgeInsets.all(8),
             child: TextFormField(
@@ -68,7 +67,7 @@ class _TelaItemState extends State<TelaItem> {
               controller: descricaoController,
             ),
           ),
-        ]),
+        ),
       ),
     );
   }
