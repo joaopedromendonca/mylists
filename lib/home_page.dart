@@ -81,9 +81,10 @@ class _HomePageState extends State<HomePage> {
                 final tarefa = ListaDeTarefas[index];
                 return Card(
                     key: ValueKey(tarefa),
-                    elevation: 1,
-                    margin: const EdgeInsets.all(2),
+                    elevation: 0,
+                    margin: const EdgeInsets.all(5),
                     child: ListTile(
+                      tileColor: Colors.amber,
                       key: ValueKey(tarefa),
                       title: Text(tarefa.nome),
                       onTap: () => Navigator.of(context).push(
@@ -94,6 +95,7 @@ class _HomePageState extends State<HomePage> {
                             reverseDuration: Duration(milliseconds: 500),
                             child: TelaTarefa(nome: tarefa.nome)),
                       ),
+                      selectedTileColor: Colors.transparent,
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 8,

@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         listTileTheme: ListTileThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          tileColor: Colors.lightBlueAccent,
+          tileColor: Color.fromARGB(255, 23, 202, 53),
         ),
         dialogTheme: DialogTheme(
           backgroundColor: Color.fromARGB(237, 7, 175, 241),
