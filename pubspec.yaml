@@ -38,6 +38,10 @@ dependencies:
   drag_and_drop_lists: ^0.3.3
   page_transition: ^2.0.9
   flutter_svg: ^1.1.5
+  firebase_core: ^2.1.1
+  firebase_auth: ^4.1.1
+  cloud_firestore: ^4.0.4
+  flutter_reorderable_list: ^1.2.0
 
 dev_dependencies:
   flutter_test:
