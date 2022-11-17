@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mylists/login_page.dart';
 
@@ -7,7 +8,8 @@ import 'home_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  await Firebase.initializeApp();
+  runApp(App());
 }
 
 class App extends StatelessWidget {
