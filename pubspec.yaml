@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^4.1.1
   cloud_firestore: ^4.0.4
   flutter_reorderable_list: ^1.2.0
+  flutter_login: ^4.1.0
 
 dev_dependencies:
   flutter_test:
