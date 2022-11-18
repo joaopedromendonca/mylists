@@ -21,3 +21,20 @@ Widget backGround(Widget child) {
     child: child,
   );
 }
+
+Widget appBarBackGround() {
+  return Container(
+    height: double.infinity,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color.fromARGB(255, 140, 192, 255),
+          Color.fromARGB(255, 127, 174, 233),
+        ],
+      ),
+    ),
+  );
+}

@@ -13,6 +13,8 @@ Future main() async {
 }
 
 class App extends StatelessWidget {
+  static const lightBlueColor = Color.fromARGB(255, 140, 192, 255);
+  static const cardsColor = Color.fromARGB(235, 84, 178, 241);
   const App({Key? key}) : super(key: key);
 
   @override
@@ -21,17 +23,23 @@ class App extends StatelessWidget {
       title: 'MyDay',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: lightBlueColor,
+        ),
+        backgroundColor: Colors.amber,
+        scaffoldBackgroundColor: Color.fromARGB(235, 126, 189, 10),
         cardTheme: CardTheme(
+          color: cardsColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
         listTileTheme: ListTileThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          tileColor: Color.fromARGB(236, 21, 187, 209),
+          tileColor: cardsColor,
         ),
         dialogTheme: DialogTheme(
-          backgroundColor: Color.fromARGB(236, 21, 187, 209),
+          backgroundColor: cardsColor,
         ),
         textSelectionTheme: TextSelectionThemeData(
           selectionColor: Color.fromARGB(255, 6, 219, 202),
@@ -39,7 +47,7 @@ class App extends StatelessWidget {
         ),
         primarySwatch: Colors.lightBlue,
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }

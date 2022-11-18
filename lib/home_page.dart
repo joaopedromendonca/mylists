@@ -28,7 +28,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        elevation: 0,
+        flexibleSpace: appBarBackGround(),
+        // automaticallyImplyLeading: true,
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: <Widget>[
@@ -39,9 +41,10 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () {
               showDialog(
-                barrierColor: Colors.blue,
+                barrierColor: Color.fromARGB(255, 140, 192, 255),
                 context: context,
                 builder: (context) => AlertDialog(
+                  insetPadding: EdgeInsets.all(50),
                   content: Form(
                     key: _formKey,
                     child: TextFormField(
@@ -54,8 +57,10 @@ class _HomePageState extends State<HomePage> {
                         }
                         return null;
                       },
-                      decoration:
-                          InputDecoration(hintText: "Insira o nome da tarefa"),
+                      decoration: InputDecoration(
+                        hintText: "Insira o nome da tarefa",
+                        border: InputBorder.none,
+                      ),
                       onFieldSubmitted: (nome) => setState(() {
                         if (_formKey.currentState!.validate()) {
                           Navigator.of(context).pop();
@@ -100,7 +105,6 @@ class _HomePageState extends State<HomePage> {
       key: ValueKey(tarefa),
       margin: const EdgeInsets.all(5),
       child: ListTile(
-        // tileColor: _tile_color,
         key: ValueKey(tarefa),
         title: Text(tarefa.nome),
         onTap: () => Navigator.of(context).push(
