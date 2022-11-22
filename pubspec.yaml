@@ -64,11 +64,11 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 flutter_native_splash:
-  color: "#8cc0ff"
+  color: "#71C4FC"
   image: assets/mdlogo.png
   android: true
   android_12:
-    color: "#8cc0ff"
+    color: "#71C4FC"
     image: assets/mdlogo.png
 
 flutter_icons:
@@ -86,6 +86,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/mdlogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

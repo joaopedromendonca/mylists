@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mylists/templates/estilos.dart';
-import 'package:mylists/tarefa.dart';
+import 'package:mylists/userpages/tarefa.dart';
 
 class TelaItem extends StatefulWidget {
   final ItemTarefa tarefa;

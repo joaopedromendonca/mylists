@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:mylists/templates/estilos.dart';
-import 'package:mylists/tela_item.dart';
+import 'package:mylists/userpages/tela_item.dart';
 import 'package:page_transition/page_transition.dart';
-import 'templates/botao_menu.dart';
+import '../templates/botao_menu.dart';
 
 class Tarefa {
   String nome;

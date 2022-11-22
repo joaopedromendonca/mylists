@@ -2,8 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mylists/google_sign_in.dart';
-import 'package:mylists/login_page.dart';
+import 'package:mylists/auth/google_sign_in.dart';
 import 'package:mylists/main_page.dart';
 import 'package:provider/provider.dart';
 
