@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylists/templates/estilos.dart';
 import 'package:mylists/tarefa.dart';
@@ -26,11 +27,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
     return Scaffold(
       appBar: AppBar(
+        leading: MaterialButton(
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
+          child: Icon(Icons.logout),
+        ),
         elevation: 0,
         flexibleSpace: appBarBackGround(),
-        // automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: <Widget>[

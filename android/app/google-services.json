@@ -7,12 +7,49 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:629807834876:android:aeb882d2c10d4f93a21979",
+        "mobilesdk_app_id": "1:629807834876:android:016aae698d806122a21979",
         "android_client_info": {
-          "package_name": "com.example.mylists"
+          "package_name": "com.example.hardflix"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "629807834876-srnicc84gck9u37ake8jhcgtiaknqoae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALu0MbiRyG8-l6iAs9hpZdWPkgTZ-DhYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629807834876-srnicc84gck9u37ake8jhcgtiaknqoae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629807834876:android:aeb882d2c10d4f93a21979",
+        "android_client_info": {
+          "package_name": "com.example.mylist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629807834876-cifa5jh7kjhv2d3rvo92ue8g7l9qdlod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mylist",
+            "certificate_hash": "64ab43885a7fb54fa0c2aa4eb0763efc67054ba4"
+          }
+        },
         {
           "client_id": "629807834876-srnicc84gck9u37ake8jhcgtiaknqoae.apps.googleusercontent.com",
           "client_type": 3
