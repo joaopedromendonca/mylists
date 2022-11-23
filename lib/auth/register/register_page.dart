@@ -2,8 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mylists/templates/estilos.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -54,141 +54,176 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: lightBlue,
       body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: 40,
-            vertical: 20,
-          ),
-          // height: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _usuarioController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    hintText: 'Usuário',
-                    border: InputBorder.none,
+        child: backGround(
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 60,
+              vertical: 20,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 40),
+                  Center(
+                    child: Text(
+                      'Sign up',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: mediumBlueColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    hintText: 'E-mail',
-                    border: InputBorder.none,
+                  SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      'Create an account, it\'s free!',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: mediumBlueColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    hintText: 'Senha',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  controller: _confPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    hintText: 'Confirme a senha',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: signUp,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
+                  SizedBox(height: 40),
+                  Container(
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue,
+                      color: lightBlue,
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                        width: 3,
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    child: TextField(
+                      cursorColor: mediumBlueColor,
+                      style: TextStyle(height: 2),
+                      controller: _usuarioController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_pin_rounded),
+                        contentPadding: EdgeInsets.all(4),
+                        hintText: 'Usuário',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 113, 196, 252),
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      cursorColor: mediumBlueColor,
+                      style: TextStyle(height: 2),
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.email_outlined),
+                        contentPadding: EdgeInsets.all(5),
+                        hintText: 'E-mail',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 113, 196, 252),
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      cursorColor: mediumBlueColor,
+                      style: TextStyle(height: 2),
+                      obscureText: true,
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_outline),
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        hintText: 'Senha',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 113, 196, 252),
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      cursorColor: mediumBlueColor,
+                      style: TextStyle(height: 2),
+                      obscureText: true,
+                      controller: _confPasswordController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_outline),
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        hintText: 'Confirme a senha',
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: signUp,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 45),
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: widget.showLoginPage,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Back to login',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: widget.showLoginPage,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 45),
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Back to login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(height: 10),
+                ],
               ),
-              Expanded(
-                child: SizedBox(height: 10),
-              ),
-            ],
+            ),
           ),
         ),
       ),

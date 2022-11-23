@@ -2,8 +2,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mylists/models/projeto.dart';
 import 'package:mylists/templates/estilos.dart';
 import 'package:mylists/userpages/tarefa.dart';
+import 'package:mylists/utils/proxydecorator.dart';
 import 'package:page_transition/page_transition.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,9 +18,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final _editFormKey = GlobalKey<FormState>();
-  List<Tarefa> tarefas = [];
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
+  List<Projeto> projetos = [];
 
   @override
   void dispose() {
