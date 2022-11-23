@@ -183,27 +183,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                // ElevatedButton.icon(
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: Colors.lightBlue,
-                //     minimumSize: const Size(double.infinity, 40),
-                //   ),
-                //   icon: FaIcon(
-                //     FontAwesomeIcons.google,
-                //     color: Colors.white,
-                //   ),
-                //   label: Text(
-                //     'Sign in with google',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //     ),
-                //   ),
-                //   onPressed: () {
-                //     final provider = Provider.of<GoogleSignInProvider>(context,
-                //         listen: false);
-                //     provider.googleLogin();
-                //   },
-                // ),
               ],
             ),
           ),

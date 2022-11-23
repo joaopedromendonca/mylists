@@ -11,10 +11,10 @@ Widget backGround(Widget child) {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color.fromARGB(255, 127, 174, 233),
-          Color.fromARGB(255, 78, 143, 218),
-          Color.fromARGB(255, 45, 120, 212),
-          Color.fromARGB(255, 5, 72, 148),
+          Color.fromARGB(255, 140, 192, 255),
+          Color.fromARGB(255, 130, 182, 255),
+          Color.fromARGB(255, 120, 172, 255),
+          Color.fromARGB(255, 110, 162, 255),
         ],
       ),
     ),
@@ -27,14 +27,7 @@ Widget appBarBackGround() {
     height: double.infinity,
     width: double.infinity,
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color.fromARGB(255, 140, 192, 255),
-          Color.fromARGB(255, 127, 174, 233),
-        ],
-      ),
+      color: Color.fromARGB(255, 140, 192, 255),
     ),
   );
 }

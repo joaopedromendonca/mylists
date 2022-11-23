@@ -15,6 +15,7 @@ Future main() async {
 class App extends StatelessWidget {
   static const lightBlueColor = Color.fromARGB(255, 140, 192, 255);
   static const mediumBlueColor = Color.fromARGB(235, 84, 178, 241);
+  static const strongBlueColor = Color.fromARGB(255, 2, 91, 199);
   const App({Key? key}) : super(key: key);
 
   @override
@@ -44,8 +45,8 @@ class App extends StatelessWidget {
             backgroundColor: mediumBlueColor,
           ),
           textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Color.fromARGB(255, 6, 219, 202),
-            cursorColor: Color.fromARGB(255, 0, 40, 114),
+            selectionColor: Color.fromARGB(255, 45, 133, 248),
+            cursorColor: strongBlueColor,
           ),
           primarySwatch: Colors.lightBlue,
         ),
