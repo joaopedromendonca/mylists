@@ -36,7 +36,10 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
 
-    await FirebaseFirestore.instance.collection('usuarios').add({
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(_emailController.text.trim())
+        .set({
       'email': _emailController.text.trim(),
       'senha': _passwordController.text.trim(),
       'usuario': _usuarioController.text.trim()
@@ -69,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(height: 40),
                   Center(
                     child: Text(
-                      'Sign up',
+                      'Cadastro',
                       style: TextStyle(
                         fontSize: 30,
                         color: mediumBlueColor,
@@ -80,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(height: 20),
                   Center(
                     child: Text(
-                      'Create an account, it\'s free!',
+                      'Crie uma conta, é gratuito!',
                       style: TextStyle(
                         fontSize: 15,
                         color: mediumBlueColor,
@@ -190,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       child: Center(
                         child: Text(
-                          'Sign up',
+                          'Cadastrar',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -211,7 +214,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       child: Center(
                         child: Text(
-                          'Back to login',
+                          'Voltar para o login',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

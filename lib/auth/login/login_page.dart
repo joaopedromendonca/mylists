@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           child: Center(
                             child: Text(
-                              'Sign in',
+                              'Entrar',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           child: Center(
                             child: Text(
-                              'Sign up',
+                              'Registrar',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -179,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            'Sign in with google',
+                            'Entrar com conta google',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

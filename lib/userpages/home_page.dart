@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mylists/models/projeto.dart';
 import 'package:mylists/templates/estilos.dart';
@@ -20,6 +22,8 @@ class _HomePageState extends State<HomePage> {
   final _editFormKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
+  final _user = FirebaseAuth.instance.currentUser;
+  final _users = FirebaseFirestore.instance.collection('usuarios');
   List<Projeto> projetos = [];
 
   @override
@@ -171,29 +175,25 @@ class _HomePageState extends State<HomePage> {
         );
         _nomeController.clear();
         _descricaoController.clear();
+
+        FirebaseFirestore.instance
+            .collection('usuarios')
+            .doc(_user!.email)
+            .collection('projetos')
+            .doc()
+            .set(
+          {
+            'nome': projeto.nome,
+            'descricao': projeto.descricao,
+            'dataCriacao': projeto.dataCriacao
+          },
+        );
         return projetos.add(
           projeto,
         );
       }
     });
   }
-
-  Future<bool?> showWarning(BuildContext context) async => showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Deseja voltar à tela de login?"),
-          actions: [
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text("Sim"),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text("Não"),
-            ),
-          ],
-        ),
-      );
 
   void editar(int index) => showDialog(
         context: context,
