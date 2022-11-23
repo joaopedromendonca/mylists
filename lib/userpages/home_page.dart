@@ -23,8 +23,34 @@ class _HomePageState extends State<HomePage> {
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
   final _user = FirebaseAuth.instance.currentUser;
-  final _users = FirebaseFirestore.instance.collection('usuarios');
   List<Projeto> projetos = [];
+
+  @override
+  void initState() {
+    var projetosDoc = FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(_user!.email)
+        .collection('projetos')
+        .get();
+
+    FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(_user!.email)
+        .collection('projetos')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        projetos.add(
+          Projeto(
+              nome: doc['nome'],
+              dataCriacao: (doc['dataCriacao'] as Timestamp).toDate(),
+              descricao: doc['descricao']),
+        );
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -180,7 +206,7 @@ class _HomePageState extends State<HomePage> {
             .collection('usuarios')
             .doc(_user!.email)
             .collection('projetos')
-            .doc()
+            .doc(projeto.dataCriacao.toString())
             .set(
           {
             'nome': projeto.nome,
@@ -198,13 +224,13 @@ class _HomePageState extends State<HomePage> {
   void editar(int index) => showDialog(
         context: context,
         builder: ((context) {
-          final tarefa = projetos[index];
+          final projeto = projetos[index];
           return AlertDialog(
             content: Form(
               key: _editFormKey,
               child: TextFormField(
                 autofocus: true,
-                initialValue: tarefa.nome,
+                initialValue: projeto.nome,
                 validator: (nome) {
                   if (nome == null || nome.isEmpty) {
                     return "Este campo é obrigatório.";
@@ -214,7 +240,22 @@ class _HomePageState extends State<HomePage> {
                 onFieldSubmitted: (nome) => setState(() {
                   if (_editFormKey.currentState!.validate()) {
                     Navigator.of(context).pop();
-                    tarefa.nome = nome;
+                    projeto.nome = nome;
+                    FirebaseFirestore.instance
+                        .collection('usuarios')
+                        .doc(_user!.email)
+                        .collection('projetos')
+                        .doc(projeto.dataCriacao.toString())
+                        .set(
+                      {
+                        'nome': projeto.nome,
+                        'descricao': projeto.descricao,
+                        'dataCriacao': projeto.dataCriacao
+                      },
+                    );
+                    return projetos.add(
+                      projeto,
+                    );
                   }
                 }),
               ),
@@ -223,7 +264,17 @@ class _HomePageState extends State<HomePage> {
         }),
       );
 
-  void deletar(int index) => setState(() {
-        projetos.removeAt(index);
-      });
+  void deletar(int index) => setState(
+        () {
+          var projeto = projetos[index];
+          FirebaseFirestore.instance
+              .collection('usuarios')
+              .doc(_user!.email)
+              .collection('projetos')
+              .doc(projeto.dataCriacao.toString())
+              .delete();
+          ;
+          projetos.removeAt(index);
+        },
+      );
 }
