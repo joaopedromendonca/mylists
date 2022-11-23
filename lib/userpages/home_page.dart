@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   final _editFormKey = GlobalKey<FormState>();
   List<Tarefa> tarefas = [];
   final _nomeController = TextEditingController();
+  final _descricaoController = TextEditingController();
 
   @override
   void dispose() {
@@ -50,33 +51,47 @@ class _HomePageState extends State<HomePage> {
             ),
             onPressed: () {
               showDialog(
-                barrierColor: Color.fromARGB(255, 140, 192, 255),
                 context: context,
                 builder: (context) => AlertDialog(
                   insetPadding: EdgeInsets.all(50),
                   content: Form(
                     key: _formKey,
-                    child: TextFormField(
-                      showCursor: true,
-                      autofocus: true,
-                      controller: _nomeController,
-                      validator: (nome) {
-                        if (nome == null || nome.isEmpty) {
-                          return "Este campo é obrigatório.";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Insira o nome da tarefa",
-                        border: InputBorder.none,
-                      ),
-                      onFieldSubmitted: (nome) => setState(() {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.of(context).pop();
-                          _nomeController.clear();
-                          return tarefas.add(Tarefa(nome: nome));
-                        }
-                      }),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          showCursor: true,
+                          autofocus: true,
+                          controller: _nomeController,
+                          validator: (nome) {
+                            if (nome == null || nome.isEmpty) {
+                              return "Este campo é obrigatório.";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: "Insira o nome da tarefa",
+                            border: InputBorder.none,
+                          ),
+                          onFieldSubmitted: (_) => criaTarefa(),
+                        ),
+                        TextFormField(
+                          showCursor: true,
+                          autofocus: true,
+                          controller: _descricaoController,
+                          validator: (desc) {
+                            if (desc == null || desc.isEmpty) {
+                              return "Este campo é obrigatório.";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: "Insira a descrição da tarefa",
+                            border: InputBorder.none,
+                          ),
+                          onFieldSubmitted: (_) => criaTarefa(),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -107,6 +122,24 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void criaTarefa() {
+    setState(() {
+      if (_formKey.currentState!.validate()) {
+        Navigator.of(context).pop();
+        var _tarefa = Tarefa(
+          nome: _nomeController.text.trim(),
+          descricao: _descricaoController.text.trim(),
+          dataCriacao: DateTime.now(),
+        );
+        _nomeController.clear();
+        _descricaoController.clear();
+        return tarefas.add(
+          _tarefa,
+        );
+      }
+    });
   }
 
   Widget buildCard(int index, Tarefa tarefa) {

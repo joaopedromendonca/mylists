@@ -8,9 +8,13 @@ import '../templates/botao_menu.dart';
 
 class Tarefa {
   String nome;
+  String descricao;
+  DateTime dataCriacao;
 
   Tarefa({
     required this.nome,
+    required this.descricao,
+    required this.dataCriacao,
   });
 }
 
