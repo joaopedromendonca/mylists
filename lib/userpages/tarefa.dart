@@ -3,98 +3,96 @@
 import 'package:flutter/material.dart';
 import 'package:mylists/templates/estilos.dart';
 import 'package:mylists/userpages/tela_item.dart';
+import 'package:mylists/utils/proxydecorator.dart';
 import 'package:page_transition/page_transition.dart';
-import '../templates/botao_menu.dart';
+import 'package:mylists/templates/botao_menu.dart';
+import 'package:mylists/models/projeto.dart';
 
-class Tarefa {
-  String nome;
-  String descricao;
-  DateTime dataCriacao;
-
-  Tarefa({
-    required this.nome,
-    required this.descricao,
-    required this.dataCriacao,
-  });
-}
-
-class ItemTarefa {
-  String nome;
-  String descricao = "";
-
-  ItemTarefa({required this.nome});
-}
-
-class TelaTarefa extends StatefulWidget {
-  final String nome;
-  const TelaTarefa({super.key, required this.nome});
+class TelaProjeto extends StatefulWidget {
+  final Projeto projeto;
+  const TelaProjeto({super.key, required this.projeto});
 
   @override
-  State<TelaTarefa> createState() => _TelaTarefaState();
+  State<TelaProjeto> createState() => _TelaProjetoState();
 }
 
-class _TelaTarefaState extends State<TelaTarefa> {
+class _TelaProjetoState extends State<TelaProjeto> {
   final _formKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
   final _editFormKey = GlobalKey<FormState>();
-  List<ItemTarefa> listaItens = [];
+  List<Tarefa> tarefas = [];
+
+  @override
+  void initState() {
+    tarefas = widget.projeto.tarefas;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.nome),
-        centerTitle: true,
-        actions: [
-          PopupMenuButton<ItemMenu>(
-            itemBuilder: (context) => [
-              ...Menu.primeiraLista.map(buildItem).toList(),
-            ],
-            onSelected: (value) {
-              if (value.nome == "Novo item") {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    content: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        autofocus: true,
-                        controller: _nomeController,
-                        validator: (nome) {
-                          if (nome == null || nome.isEmpty) {
-                            return "Este campo é obrigatório.";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Insira o nome da tarefa"),
-                        onFieldSubmitted: (nome) => setState(() {
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.of(context).pop();
-                            _nomeController.clear();
-                            return listaItens.add(ItemTarefa(nome: nome));
-                          }
-                        }),
+    return WillPopScope(
+      onWillPop: () async => true,
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: appBarBackGround(),
+          elevation: 0,
+          // automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_rounded),
+            onPressed: () => Navigator.pop(context, true),
+          ),
+          title: Text(widget.projeto.nome),
+          centerTitle: true,
+          actions: [
+            PopupMenuButton<ItemMenu>(
+              itemBuilder: (context) => [
+                ...Menu.primeiraLista.map(buildItem).toList(),
+              ],
+              onSelected: (value) {
+                if (value.nome == "Novo item") {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          autofocus: true,
+                          controller: _nomeController,
+                          validator: (nome) {
+                            if (nome == null || nome.isEmpty) {
+                              return "Este campo é obrigatório.";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              hintText: "Insira o nome da tarefa"),
+                          onFieldSubmitted: (nome) => setState(() {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context).pop();
+                              _nomeController.clear();
+                              return tarefas.add(Tarefa(nome: nome));
+                            }
+                          }),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
-            },
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: backGround(
-          ReorderableListView.builder(
-            itemCount: listaItens.length,
-            itemBuilder: (BuildContext context, int index) {
-              final tarefa = listaItens[index];
-              return Card(
+                  );
+                }
+              },
+            )
+          ],
+        ),
+        body: SafeArea(
+          child: backGround(
+            ReorderableListView.builder(
+              proxyDecorator: proxyDecorator,
+              itemCount: tarefas.length,
+              itemBuilder: (BuildContext context, int index) {
+                final tarefa = tarefas[index];
+                return Card(
                   key: ValueKey(tarefa),
-                  color: Color.fromARGB(255, 22, 205, 230),
-                  elevation: 1,
-                  margin: const EdgeInsets.all(2),
+                  // elevation: 1,
+                  margin: const EdgeInsets.all(6),
                   child: ListTile(
                     key: ValueKey(tarefa),
                     title: Text(tarefa.nome),
@@ -123,18 +121,20 @@ class _TelaTarefaState extends State<TelaTarefa> {
                         )
                       ],
                     ),
-                  ));
-            },
-            padding: const EdgeInsets.all(8),
-            onReorder: (int oldIndex, int newIndex) {
-              setState(() {
-                if (newIndex > oldIndex) {
-                  newIndex -= 1;
-                }
-                final ItemTarefa item = listaItens.removeAt(oldIndex);
-                listaItens.insert(newIndex, item);
-              });
-            },
+                  ),
+                );
+              },
+              padding: const EdgeInsets.all(8),
+              onReorder: (int oldIndex, int newIndex) {
+                setState(() {
+                  if (newIndex > oldIndex) {
+                    newIndex -= 1;
+                  }
+                  final Tarefa tarefa = tarefas.removeAt(oldIndex);
+                  tarefas.insert(newIndex, tarefa);
+                });
+              },
+            ),
           ),
         ),
       ),
@@ -155,7 +155,7 @@ class _TelaTarefaState extends State<TelaTarefa> {
   void editar(int index) => showDialog(
         context: context,
         builder: ((context) {
-          final tarefa = listaItens[index];
+          final tarefa = tarefas[index];
           return AlertDialog(
             content: Form(
               key: _editFormKey,
@@ -181,6 +181,6 @@ class _TelaTarefaState extends State<TelaTarefa> {
       );
 
   void deletar(int index) => setState(() {
-        listaItens.removeAt(index);
+        tarefas.removeAt(index);
       });
 }

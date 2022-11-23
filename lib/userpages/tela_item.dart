@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mylists/models/projeto.dart';
 import 'package:mylists/templates/estilos.dart';
-import 'package:mylists/userpages/tarefa.dart';
 
 class TelaItem extends StatefulWidget {
-  final ItemTarefa tarefa;
+  final Tarefa tarefa;
   const TelaItem({super.key, required this.tarefa});
 
   @override
@@ -43,6 +43,8 @@ class _TelaItemState extends State<TelaItem> {
       },
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: appBarBackGround(),
+          elevation: 0,
           actions: [
             IconButton(
               onPressed: () {
@@ -54,7 +56,7 @@ class _TelaItemState extends State<TelaItem> {
         ),
         body: backGround(
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(6),
             child: TextFormField(
               autofocus: true,
               decoration: InputDecoration(

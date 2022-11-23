@@ -72,10 +72,11 @@ class _HomePageState extends State<HomePage> {
                             return null;
                           },
                           decoration: InputDecoration(
+                            label: Text('Nome da tarefa'),
                             hintText: "Insira o nome da tarefa",
                             border: InputBorder.none,
                           ),
-                          onFieldSubmitted: (_) => criaTarefa(),
+                          onFieldSubmitted: (_) => criaProjeto(),
                         ),
                         TextFormField(
                           showCursor: true,
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                             hintText: "Insira a descrição da tarefa",
                             border: InputBorder.none,
                           ),
-                          onFieldSubmitted: (_) => criaTarefa(),
+                          onFieldSubmitted: (_) => criaProjeto(),
                         ),
                       ],
                     ),
@@ -106,18 +107,51 @@ class _HomePageState extends State<HomePage> {
         child: backGround(
           ReorderableListView.builder(
             proxyDecorator: proxyDecorator,
-            itemCount: tarefas.length,
+            itemCount: projetos.length,
             itemBuilder: (BuildContext context, int index) {
-              final tarefa = tarefas[index];
-              return buildCard(index, tarefa);
+              final projeto = projetos[index];
+              return Card(
+                key: ValueKey(projeto),
+                margin: const EdgeInsets.all(5),
+                child: ListTile(
+                  key: ValueKey(projeto),
+                  title: Text(projeto.nome),
+                  onTap: () => Navigator.of(context).push(
+                    PageTransition(
+                        type: PageTransitionType.rightToLeftJoined,
+                        childCurrent: widget,
+                        duration: Duration(milliseconds: 500),
+                        reverseDuration: Duration(milliseconds: 500),
+                        child: TelaProjeto(projeto: projeto)),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: (() => editar(index)),
+                        icon: Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: (() => deletar(index)),
+                        icon: Icon(Icons.delete),
+                      )
+                    ],
+                  ),
+                ),
+              );
+              ;
             },
             padding: const EdgeInsets.all(8),
             onReorder: (int oldIndex, int newIndex) {
               if (newIndex > oldIndex) newIndex--;
               setState(() {
-                var tarefa = tarefas[oldIndex];
-                tarefas.removeAt(oldIndex);
-                tarefas.insert(newIndex, tarefa);
+                var tarefa = projetos[oldIndex];
+                projetos.removeAt(oldIndex);
+                projetos.insert(newIndex, tarefa);
               });
             },
           ),
@@ -126,78 +160,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void criaTarefa() {
+  void criaProjeto() {
     setState(() {
       if (_formKey.currentState!.validate()) {
         Navigator.of(context).pop();
-        var _tarefa = Tarefa(
+        var projeto = Projeto(
           nome: _nomeController.text.trim(),
           descricao: _descricaoController.text.trim(),
           dataCriacao: DateTime.now(),
         );
         _nomeController.clear();
         _descricaoController.clear();
-        return tarefas.add(
-          _tarefa,
+        return projetos.add(
+          projeto,
         );
       }
     });
   }
 
-  Widget buildCard(int index, Tarefa tarefa) {
-    return Card(
-      key: ValueKey(tarefa),
-      margin: const EdgeInsets.all(5),
-      child: ListTile(
-        key: ValueKey(tarefa),
-        title: Text(tarefa.nome),
-        onTap: () => Navigator.of(context).push(
-          PageTransition(
-              type: PageTransitionType.rightToLeftJoined,
-              childCurrent: widget,
-              duration: Duration(milliseconds: 500),
-              reverseDuration: Duration(milliseconds: 500),
-              child: TelaTarefa(nome: tarefa.nome)),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 8,
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            IconButton(
-              onPressed: (() => editar(index)),
-              icon: Icon(Icons.edit),
+  Future<bool?> showWarning(BuildContext context) async => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Deseja voltar à tela de login?"),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text("Sim"),
             ),
-            IconButton(
-              onPressed: (() => deletar(index)),
-              icon: Icon(Icons.delete),
-            )
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text("Não"),
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (BuildContext context, Widget? child) {
-        return Material(
-          elevation: 0.0,
-          color: Colors.transparent,
-          child: child,
-        );
-      },
-      child: child,
-    );
-  }
+      );
 
   void editar(int index) => showDialog(
         context: context,
         builder: ((context) {
-          final tarefa = tarefas[index];
+          final tarefa = projetos[index];
           return AlertDialog(
             content: Form(
               key: _editFormKey,
@@ -223,6 +224,6 @@ class _HomePageState extends State<HomePage> {
       );
 
   void deletar(int index) => setState(() {
-        tarefas.removeAt(index);
+        projetos.removeAt(index);
       });
 }
